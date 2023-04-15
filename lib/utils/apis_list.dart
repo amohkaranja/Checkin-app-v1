@@ -8,51 +8,50 @@ import 'package:http/http.dart' as http;
 
 
 
-const api = "https://2fc1-105-163-157-26.ngrok-free.app/";
+const api = "http://admin.check-in.co.ke:71/";
 // ignore: non_constant_identifier_names
 /// login function
 /// @param {JSON} data
 /// @param{(error:JSON,result:JSON)} callback
 void login(data, callback) async {
-  var url = Uri.parse("${api}api/auth/jwt/login/");
-  var response = await http.post(url,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-      },
-      body: jsonEncode(data));
-
-  // print(response);
+  var url = Uri.parse("${api}student_login.php");
+  var response = await http.post(url, body: data);
   var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
+
   // ignore: avoid_print
-  if (response.statusCode == 200) {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.setString("token",jsonResponse["access"]);
-    // ignore: void_checks
+  if (jsonResponse["success"] == "2") {
+     final prefs = await SharedPreferences.getInstance();
+    prefs.setString('student_id', jsonResponse['login'][0]['student_id']);
+    prefs.setString('firstname', jsonResponse['login'][0]['firstname']);
+    prefs.setString('lastname', jsonResponse['login'][0]['lastname']);
+    prefs.setString('email', jsonResponse['login'][0]['email']);
+    prefs.setString('phone', jsonResponse['login'][0]['phone']);
+    prefs.setString('regNo', jsonResponse['login'][0]['regNo']);
+    prefs.setString('student_profile', jsonResponse['login'][0]['student_profile']);
+    prefs.setString('email_validation', jsonResponse['login'][0]['email_validation']);
+        // ignore: void_checks
     return callback(jsonResponse["message"], null);
+  }else{
+    callback(null, jsonResponse["message"]);
   }
-  callback(null, jsonResponse["message"]);
+  
 }
 void logout() async{
-   final prefs = await SharedPreferences.getInstance();
-     var token= (prefs.getString("token"));
-  var url = Uri.parse("${api}api/auth/jwt/logout/");
-  await http.get(url,headers:  <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':'Bearer ${token!}',
-      },);
+   print("logout");
 }
 
 
 Future<Profile> profileData() async {
+  var profile= Profile();
    final prefs = await SharedPreferences.getInstance();
-     var token= (prefs.getString("token"));
-  var url = Uri.parse("${api}api/auth/users/me"); 
-    var response=  await http.get(url,headers:  <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':'Bearer ${token!}',
-      },);
-        var jsonResponse = convert.jsonDecode(response.body);
-        Profile profile= await  Profile.fromJson(jsonResponse);
+  profile.id= prefs.getString('student_id')!;
+  profile.first_name = prefs.getString('firstname')!;
+  profile.last_name= prefs.getString('lastname')!;
+ profile.email= prefs.getString('email')!;
+  profile.phone_number = prefs.getString('phone')!;
+  profile.regNo = prefs.getString('regNo')!;
+  profile.student_profile = prefs.getString('student_profile')!;
+  String? emailValidation = prefs.getString('email_validation');
     return profile;
 
 }

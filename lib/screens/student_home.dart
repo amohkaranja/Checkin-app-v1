@@ -1,7 +1,7 @@
 // import 'package:checkin/screens/Scanned_classes.dart';
 // import 'package:checkin/screens/classes.dart';
 import 'package:flutter/material.dart';
-// import 'user_profile.dart';
+import 'user_profile.dart';
 class StudentHomeScreen extends StatelessWidget {
   const StudentHomeScreen({super.key});
 
@@ -215,11 +215,11 @@ class StudentHomeScreen extends StatelessWidget {
                       children:  [
                         GestureDetector(
                           onTap: () {
-                      //       Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //       builder: (context) => User_Profile()),
-                      // );
+                            Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => User_Profile()),
+                      );
                           },
                           child: const Image(
                             image: AssetImage("assets/images/account.png"),

@@ -12,18 +12,9 @@ class Profile{
   late String  last_name;
   late String email;
   late String phone_number;
+  late String regNo;
   late String id;
-  Profile ({required this.first_name, required this.last_name, required this.email, required this.phone_number,required this.id});
-factory Profile.fromJson(Map<String, dynamic> json) {
-    return Profile(
-      first_name: json['first_name'],
-      last_name: json['last_name'],
-      email:json['email'],
-      phone_number:json['phone_number'],
-      id:json['id']
-    );
-  }
-  
+  late String student_profile;
 }
 
 class Institution {
