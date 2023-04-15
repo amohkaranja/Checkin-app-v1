@@ -1,6 +1,6 @@
 // ignore_for_file: avoid_print
 import 'package:checkin/screens/user_signUp.dart';
-// import 'package:checkin/screens/student_home.dart';
+import 'package:checkin/screens/student_home.dart';
 import 'package:flutter/material.dart';
  import '../utils/apis_list.dart';
 
@@ -22,32 +22,32 @@ class _LoginFormState extends State<LoginForm> {
       _errorMessage = "";
       _loading=true;
     });
-    var data = {"email": _username, "password": _password};
-    // login(
-    //     data,
-    //     (result, error) => {
-    //           if (result == null)
-    //             {
-    //               setState(() {
-    //               _loading=false;
-    //             }),
-    //               print(error),
-    //               setState(() {
-    //                 _errorMessage = error;
-    //               })
-    //             }
-    //           else
-    //             {
-    //                 setState(() {
-    //               _loading=false;
-    //             }),
-    //               Navigator.push(
-    //                 context,
-    //                 MaterialPageRoute(
-    //                     builder: (context) => StudentHomeScreen()),
-    //               )
-    //             }
-    //         });
+    var data = {"email": "gathaiya28@gmail.com", "password": "qwertyman"};
+    login(
+        data,
+        (result, error) => {
+              if (result == null)
+                {
+                  setState(() {
+                  _loading=false;
+                }),
+                  print(error),
+                  setState(() {
+                    _errorMessage = error;
+                  })
+                }
+              else
+                {
+                    setState(() {
+                  _loading=false;
+                }),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => StudentHomeScreen()),
+                  )
+                }
+            });
   }
 
   @override
@@ -73,7 +73,7 @@ class _LoginFormState extends State<LoginForm> {
                   )
                 : Container(height: 1),
             TextFormField(
-              initialValue: "studentuser@email.com",
+              initialValue: "gathaiya28@gmail.com",
               decoration: InputDecoration(
                   labelText: 'Username',
                  
@@ -93,7 +93,7 @@ class _LoginFormState extends State<LoginForm> {
               height: 10.0,
             ),
             TextFormField(
-              initialValue: "student9876",
+              initialValue: "qwertyman",
               decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(
