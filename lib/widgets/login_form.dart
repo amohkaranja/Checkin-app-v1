@@ -22,8 +22,9 @@ class _LoginFormState extends State<LoginForm> {
       _errorMessage = "";
       _loading=true;
     });
-    var data = {"email": "gathaiya28@gmail.com", "password": "qwertyman"};
-    login(
+    var data = {"email": _username, "password": _password};
+   
+       login(
         data,
         (result, error) => {
               if (result == null)
@@ -84,8 +85,13 @@ class _LoginFormState extends State<LoginForm> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter a username';
+                }else{
+                  setState(() {
+                    _username=value;
+                  });
+                  return null;
                 }
-                return null;
+                
               },
               onSaved: (value) => _username = value!,
             ),
@@ -104,8 +110,13 @@ class _LoginFormState extends State<LoginForm> {
               validator: (value) {
                 if (value!.isEmpty) {
                   return 'Please enter a password';
+                }else{
+                  setState(() {
+                    _password=_password;
+                  });
+                  return null;
                 }
-                return null;
+                
               },
               onSaved: (value) => _password = value!,
             ),
@@ -114,9 +125,11 @@ class _LoginFormState extends State<LoginForm> {
                 backgroundColor: const Color(0xff008346),
               ),
               onPressed: () {
-                submit();
+               
                 if (_formKey.currentState!.validate()) {
                   _formKey.currentState!.save();
+                  FocusScope.of(context).unfocus();
+                   submit();
                   // Use _username and _password to log in
                 }
               },
