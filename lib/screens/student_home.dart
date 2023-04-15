@@ -1,5 +1,6 @@
 // import 'package:checkin/screens/Scanned_classes.dart';
 // import 'package:checkin/screens/classes.dart';
+import 'scan_class.dart';
 import 'package:flutter/material.dart';
 import 'user_profile.dart';
 class StudentHomeScreen extends StatelessWidget {
@@ -57,11 +58,11 @@ class StudentHomeScreen extends StatelessWidget {
             child: Center(
               child: GestureDetector(
                  onTap: () {
-                    //       Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => ScannedClasses()),
-                    // );
+                          Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ScanClass()),
+                    );
                         },
                 child: Card(
                     child: Padding(
@@ -73,7 +74,7 @@ class StudentHomeScreen extends StatelessWidget {
                             height: 80,
                             fit: BoxFit.contain,
                           ),
-                          Text("Scanned Class")
+                          Text("Scan Class")
                         ]),
                       ),
                     ),

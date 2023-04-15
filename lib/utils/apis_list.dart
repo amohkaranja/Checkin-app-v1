@@ -85,22 +85,18 @@ Future<bool> fetchDataAndSaveToPrefs() async {
 
 
 void post(dynamic data, String url, Function callback) async {
-   final prefs = await SharedPreferences.getInstance();
-     var token= (prefs.getString("token"));
+  
   var apiUrl = Uri.parse(api + url);
-  var response = await http.post(apiUrl,
-      headers: <String, String>{
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':'Bearer ${token!}',
-      },
-      body: jsonEncode(data));
+  var response = await http.post(apiUrl,body: data);
 
   var jsonResponse = convert.jsonDecode(response.body) as Map<String, dynamic>;
-  if (response.statusCode == 201) {
+  if (jsonResponse["success"] == "1") {
     // ignore: void_checks
     return callback("success", null);
+  }else{
+    callback(null, jsonResponse["message"]);
   }
-  callback(null, jsonResponse["message"]);
+  
 }
 void Patch(dynamic data, String url, Function callback) async {
    final prefs = await SharedPreferences.getInstance();
